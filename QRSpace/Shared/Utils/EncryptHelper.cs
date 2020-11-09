@@ -5,10 +5,10 @@ namespace QRSpace.Shared.Utils
 {
     public static class EncryptHelper
     {
-        private const string PublicKey = "m0FKrfs9X1EL&%3u";
-        
-        private const string Iv = "o#gV1kiWHdKR^kz%";
-        
+        private const string PublicKey = "m0F6s9A9X1EL&%3u";// A 32-bit key
+
+        private const string Iv = "o#gV1kiWzRMR^kz%";//A 32-bit key
+
         // ReSharper disable once InconsistentNaming
         public static string EncryptWithAES(string origin)
         {
