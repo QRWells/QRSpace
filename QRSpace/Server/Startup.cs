@@ -42,7 +42,7 @@ namespace QRSpace.Server
                     opts.Password.RequireNonAlphanumeric = false;
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
-            
+
             // Redis Setup
             var section = Configuration.GetSection("Redis:Default");
             var connectionString = section.GetSection("Connection").Value;
@@ -79,12 +79,7 @@ namespace QRSpace.Server
             {
                 options.AddPolicy("TimeGoesBy", builder =>
                 {
-                    builder.WithOrigins(
-                        "http://timegoesby.wang",
-                        "http://www.timegoesby.wang",
-                        "http://localhost:4396",
-                        "http://139.196.30.69:4396",
-                        "http://139.196.30.69");
+                    builder.AllowAnyOrigin();
                     builder.AllowAnyMethod();
                     builder.AllowAnyHeader();
                     builder.AllowCredentials();
@@ -134,7 +129,6 @@ namespace QRSpace.Server
                 KeepAliveInterval = TimeSpan.FromSeconds(120),
                 ReceiveBufferSize = 4 * 1024
             };
-            webSocketOptions.AllowedOrigins.Add("https://139.196.30.69");
             webSocketOptions.AllowedOrigins.Add("*");
 
             app.UseWebSockets(webSocketOptions);

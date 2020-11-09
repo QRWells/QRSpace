@@ -40,7 +40,7 @@ namespace QRSpace.Server
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("http://*:4396", "https://*:4397");
+                    // Use --urls to specific urls to listen
                 });
     }
 }
