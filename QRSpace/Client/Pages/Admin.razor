@@ -1,0 +1,46 @@
+﻿@page "/admin"
+@page "/admin/user/{UserId}"
+@using AntDesign.TableModels
+@inject Microsoft.Extensions.Localization.IStringLocalizer<Admin> Local
+@inherits AdminBase
+
+<AuthorizeView Roles="admin">
+    <Authorized>
+        <PageHeader Title="@("User management")" Subtitle="@("Sub title")"/>
+        <h1>Welcome @context.User.Identity.Name</h1>
+        <Skeleton Loading="@_loading" Active>
+            <Table Context="item"
+                   @ref="table"
+                   DataSource="UserList"
+                   Total="_total"
+                   @bind-PageSize="_pageSize"
+                   @bind-PageIndex="_pageIndex"
+                   OnPageIndexChange="async e => await FetchData(e)"
+                   OnChange="@((QueryModel<UserItemDto> _) => OnChange(_))">
+                <Column @bind-Field="@item.Id" Sortable/>
+                <Column @bind-Field="@item.Name" Sortable/>
+                <Column @bind-Field="@item.Role" Sortable/>
+                <ActionColumn>
+                    <Space>
+                        <SpaceItem>
+                            <button class="button is-info is-light is-small" @onclick="() => OnEditClick(item.Id)">Edit</button>
+                        </SpaceItem>
+                        <SpaceItem>
+                            <Popconfirm Title="@("Are you sure?")" OkText="@Local["Confirm"]" CancelText="@Local["Cancel"]">
+                                <button class="button is-danger is-light is-small" @onclick="() => OnDeleteClick(item.Id)">Delete</button>
+                            </Popconfirm>
+                        </SpaceItem>
+                    </Space>
+                </ActionColumn>
+            </Table>
+        </Skeleton>
+    </Authorized>
+    <NotAuthorized>
+        <h1>You shouldn't be here</h1>
+    </NotAuthorized>
+</AuthorizeView>
+
+<Drawer
+    >
+    
+</Drawer>

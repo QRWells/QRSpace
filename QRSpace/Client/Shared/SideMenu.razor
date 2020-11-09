@@ -1,0 +1,116 @@
+﻿@inherits SideMenuBase
+
+<Sider Style="overflow: hidden;height: 100vh;position: fixed;left: 0;" Collapsible Collapsed="@Collapsed" OnCollapse="@OnCollapse">
+    <div>
+        <Avatar Size="large" Style="margin:10px 20px;">Avatar</Avatar>
+        <div class="field is-grouped" style="@($"{ButtonsStyle}flex-wrap:nowarp;justify-content:space-around;")">
+            <AuthorizeView>
+                <Authorized>
+                    <button class="button is-small is-danger is-outlined" @onclick="@OnLogoutClicked">@Local["Logout"]</button>
+                </Authorized>
+                <NotAuthorized>
+                    <button class="button is-primary is-small" @onclick="() => SignInVisible = true">@Local["SignIn"]</button>
+                    <button class="button is-small" @onclick="() => SignUpVisible = true">@Local["SignUp"]</button>
+                </NotAuthorized>
+            </AuthorizeView>
+        </div>
+    </div>
+    <Menu Theme="MenuTheme.Dark" Mode="MenuMode.Inline" DefaultSelectedKeys=@(new[] {"home"})>
+        <MenuItem Key="home" RouterLink="/" RouterMatch="NavLinkMatch.All">
+            <Icon Type="home" Theme="outline" />
+            <span>@Local["MenuHome"]</span>
+        </MenuItem>
+        <!--
+        <MenuItem RouterLink="/counter" RouterMatch="NavLinkMatch.All">
+            <Icon Type="plus" Theme="outline" />
+            <span>Counter</span>
+        </MenuItem>
+        <MenuItem RouterLink="/fetchdata" RouterMatch="NavLinkMatch.All">
+            <Icon Type="unordered-list" Theme="outline" />
+            <span>Fetch Data</span>
+        </MenuItem>-->
+        @{
+            RenderFragment gameSubTitle =
+                @<span>
+                    <Icon Type="mobile" Theme="outline" />
+                    <span>@Local["MenuGame"]</span>
+                </span>;
+        }
+        <SubMenu Title="@gameSubTitle" Key="game">
+            <MenuItem Key="shogi" RouterLink="/game/shogi" RouterMatch="NavLinkMatch.All">
+                <Icon Type="deployment-unit" Theme="outline" />
+                <span>@Local["GameShogi"]</span>
+            </MenuItem>
+            <MenuItem Key="snake" RouterLink="/game/snake" RouterMatch="NavLinkMatch.All" Disabled>
+                <Icon Type="" Theme="outline" />
+                <span>@Local["GameSnake"]</span>
+            </MenuItem>
+        </SubMenu>
+        <MenuItem Key="About" RouterLink="/about" RouterMatch="NavLinkMatch.All">
+            <Icon Type="info" Theme="outline" />
+            <span>@Local["MenuAbout"]</span>
+        </MenuItem>
+        <MenuItem Key="Settings" RouterLink="/settings" RouterMatch="NavLinkMatch.All">
+            <Icon Type="settings" Theme="outline" />
+            <span>@Local["MenuSettings"]</span>
+        </MenuItem>
+        <AuthorizeView Roles="admin">
+            <MenuItem Key="admin" RouterLink="/admin" RouterMatch="NavLinkMatch.All">
+                <Icon Type="control" Theme="outline" />
+                <span>Admin</span>
+            </MenuItem>
+        </AuthorizeView>
+    </Menu>
+</Sider>
+
+<Modal Title="@Local["SignIn"].ToString()"
+       Visible="@SignInVisible"
+       ConfirmLoading="@SignInLoading"
+       Footer="null"
+       OnCancel="@OnSignInCancel">
+    <Form Model="_signInDto"
+          LabelCol="@LabelCol"
+          WrapperCol="@WrapperCol"
+          OnFinish="@OnSignInSubmit"
+          OnFinishFailed="@OnSignInFailed">
+        <FormItem Label="@Local["UserName"]">
+            <Input @bind-Value="_signInDto.Username" />
+        </FormItem>
+        <FormItem Label="@Local["Password"]">
+            <InputPassword @bind-Value="_signInDto.Password" />
+        </FormItem>
+        <FormItem WrapperCol="@SubmitBtnCol">
+            <Checkbox @bind-Value="_signInDto.RememberMe">@Local["RememberMe"]</Checkbox>
+        </FormItem>
+        <FormItem WrapperCol="@SubmitBtnCol">
+            <Button Type="primary" Size="large" HtmlType="submit" Loading="@SignInLoading">
+                @Local["Confirm"]
+            </Button>
+        </FormItem>
+    </Form>
+</Modal>
+<Modal Title="@Local["SignUp"].ToString()"
+       Visible="@SignUpVisible"
+       Footer="null"
+       OnCancel="@OnSignUpCancel">
+    <Form Model="_signUpDto"
+          LabelCol="@LabelCol"
+          WrapperCol="@WrapperCol"
+          OnFinish="@OnSignUpSubmit"
+          OnFinishFailed="@OnSignUpFailed">
+        <FormItem Label="@Local["UserName"]">
+            <Input @bind-Value="_signUpDto.Username" />
+        </FormItem>
+        <FormItem Label="@Local["Password"]">
+            <InputPassword @bind-Value="_signUpDto.Password"></InputPassword>
+        </FormItem>
+        <FormItem Label="@Local["ConfirmPwd"]">
+            <InputPassword @bind-Value="_signUpDto.ConfirmPassword"></InputPassword>
+        </FormItem>
+        <FormItem WrapperCol="@SubmitBtnCol">
+            <Button Type="primary" Size="large" HtmlType="submit" Loading="@SignUpLoading">
+                @Local["Confirm"]
+            </Button>
+        </FormItem>
+    </Form>
+</Modal>

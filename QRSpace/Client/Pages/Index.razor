@@ -1,0 +1,20 @@
+﻿@page "/"
+@inject Microsoft.Extensions.Localization.IStringLocalizer<Index> Local
+@inject HttpClient HttpClient
+
+<AuthorizeView>
+    <NotAuthorized>
+        <p>目前没有实现任何有用的功能，存在诸多显著的不显著的BUG，仅上线测试用。</p>
+    </NotAuthorized>
+    <Authorized>
+        <p>登录了也没有</p>
+    </Authorized>
+</AuthorizeView>
+
+Welcome to Time Space.
+
+<!--<SurveyPrompt Title="How is Blazor working for you?" />-->
+
+@code {
+
+}

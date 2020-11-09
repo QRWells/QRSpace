@@ -1,0 +1,53 @@
+﻿@using OneOf
+@using System.Globalization
+@inject Blazored.LocalStorage.ILocalStorageService Ls
+@inject NavigationManager Navi
+
+<Select DefaultValue="CurrentCulture.Name" OnChange="@OnChange" Style="width:200px">
+    @foreach (var item in SupportedCultures)
+    {
+        <SelectOption Value="@item.Name">@item.NativeName</SelectOption>
+    }
+</Select>
+
+@code {
+
+    private static readonly CultureInfo[] SupportedCultures = {
+        new CultureInfo("zh-CN"),
+        new CultureInfo("en-US"),
+        new CultureInfo("ja-JP")
+    };
+    
+    private CultureInfo CurrentCulture
+    {
+        get => CultureInfo.CurrentCulture;
+        set
+        {
+            if (Equals(CultureInfo.CurrentCulture, value)) return;
+            Ls.SetItemAsync<string>("BlazorCulture", value.Name);
+            CultureInfo.CurrentCulture = value;
+            CultureInfo.DefaultThreadCurrentCulture = value;
+            CultureInfo.DefaultThreadCurrentUICulture = value;
+            Navi.NavigateTo(Navi.Uri, forceLoad: true);
+        }
+    }
+
+    private void OnChange(
+        OneOf<string, IEnumerable<string>, LabeledValue, IEnumerable<LabeledValue>> value,
+        OneOf<SelectOption, IEnumerable<SelectOption>> option)
+    {
+        CurrentCulture = new CultureInfo(value.AsT0);
+        CultureInfo.CurrentCulture = CurrentCulture;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var culture = await Ls.GetItemAsStringAsync("BlazorCulture");
+        if (!string.IsNullOrEmpty(culture))
+        {
+            CurrentCulture = new CultureInfo(culture);
+        }
+        await base.OnInitializedAsync();
+    }
+
+}

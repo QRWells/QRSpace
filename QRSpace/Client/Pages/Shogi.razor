@@ -1,0 +1,73 @@
+﻿@page "/game/shogi"
+@inherits ShogiBase
+
+<PageHeader>
+    <PageHeaderTitle>
+        将棋
+    </PageHeaderTitle>
+    <PageHeaderContent>
+        通信在做了，等不摸了就来了
+    </PageHeaderContent>
+</PageHeader>
+
+<div class="board-frame">
+    <div class="dan">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>7</div>
+        <div>8</div>
+        <div>9</div>
+    </div>
+    <div class="suji">
+        <div>九</div>
+        <div>八</div>
+        <div>七</div>
+        <div>六</div>
+        <div>五</div>
+        <div>四</div>
+        <div>三</div>
+        <div>二</div>
+        <div>一</div>
+    </div>
+    <div class="gameboard">
+        @for (var i = 0; i != 9; i++)
+        {
+            for (var j = 8; j != -1; j--)
+            {
+                var tempPiece = Board.Cells[j, i].Piece;
+                var (x, y) = (j, i);
+                if (tempPiece != null)
+                {
+                    if (tempPiece.Player)
+                    {
+                        <div class="@SelfCellStyle(x, y, 1)" @onclick="@(e=>OnCellClick(e, (x, y)))">
+                            <!--The cells which cannot be controlled-->
+                            <div class="opponents">
+                                @(tempPiece.GetName())
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="@SelfCellStyle(x, y, 0)" @onclick="@(e=>OnCellClick(e, (x, y)))">
+                            <div class="common">
+                                @(tempPiece.GetName())
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="@SelfCellStyle(x, y, 2)" @onclick="@(e=>OnCellClick(e, (x, y)))"></div>
+                }
+            }
+        }
+    </div>
+</div>
+@code {
+
+}

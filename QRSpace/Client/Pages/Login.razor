@@ -1,0 +1,60 @@
+﻿@page "/login"
+@inject IAuthService authService
+@inject NavigationManager navi
+
+<h1>Login</h1>
+@if (ShowErrors)
+{
+    <div class="alert alert-danger" role="alert">
+        <p>@Error</p>
+    </div>
+}
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Please enter your details</h5>
+        <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group">
+                <label for="user-name">User Name</label>
+                <InputText Id="user-name" Class="form-control" @bind-Value="loginModel.Username" />
+                <ValidationMessage For="@(() => loginModel.Username)" />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <InputText Id="password" type="password" Class="form-control" @bind-Value="loginModel.Password" />
+                <ValidationMessage For="@(() => loginModel.Password)" />
+            </div>
+            <div class="form-group">
+                <label for="remember-me">Remember Me</label>
+                <InputCheckbox Id="remember-me" Class="form-control" @bind-Value="loginModel.RememberMe">Remember Me</InputCheckbox>
+            </div>
+            <input type="submit" class="btn btn-outline-primary" />
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </EditForm>
+    </div>
+</div>
+@code {
+    private LoginDto loginModel = new LoginDto();
+    private bool ShowErrors;
+    private string Error = "";
+
+    private async Task HandleLogin()
+    {
+        ShowErrors = false;
+
+        var result = await authService.LoginAsync(loginModel);
+
+        if (result.Success)
+        {
+            navi.NavigateTo("/");
+        }
+        else
+        {
+            Error = result.Error;
+            ShowErrors = true;
+        }
+    }
+}
