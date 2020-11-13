@@ -42,7 +42,7 @@ namespace QRSpace.Server
                     opts.Password.RequireNonAlphanumeric = false;
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
-            
+
             // Redis Setup
             var section = Configuration.GetSection("Redis:Default");
             var connectionString = section.GetSection("Connection").Value;
@@ -131,8 +131,7 @@ namespace QRSpace.Server
 
             var webSocketOptions = new WebSocketOptions()
             {
-                KeepAliveInterval = TimeSpan.FromSeconds(120),
-                ReceiveBufferSize = 4 * 1024
+                KeepAliveInterval = TimeSpan.FromSeconds(120)
             };
             webSocketOptions.AllowedOrigins.Add("https://139.196.30.69");
             webSocketOptions.AllowedOrigins.Add("*");
