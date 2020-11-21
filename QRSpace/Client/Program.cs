@@ -18,7 +18,7 @@ namespace QRSpace.Client
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.RootComponents.Add<App>("app");
+            builder.RootComponents.Add<App>("#app");
 
             _ = new JwtHeader();
             _ = new JwtPayload();

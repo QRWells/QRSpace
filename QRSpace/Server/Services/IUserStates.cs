@@ -11,8 +11,8 @@ namespace QRSpace.Server.Services
 
         public Task SetUserAwayAsync(string username);
 
-        public Task SetStateAsync(string username, ulong userState);
+        public Task SetStateAsync(string username, byte userState);
 
-        public Task RemoveStateAsync(string username, ulong userState);
+        public Task RemoveStateAsync(string username, byte userState);
     }
 }

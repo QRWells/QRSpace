@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace QRSpace.Shared.Models
 {
-    public class ChangeNameDto
+    public record ChangeNameDto
     {
         [Required]
         public string OldUserName { get; set; }

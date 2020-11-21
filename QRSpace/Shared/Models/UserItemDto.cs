@@ -2,7 +2,7 @@ using System.ComponentModel;
 
 namespace QRSpace.Shared.Models
 {
-    public class UserItemDto
+    public record UserItemDto
     {
         [DisplayName("ID")]
         public ulong Id { get; set; }

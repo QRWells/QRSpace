@@ -6,7 +6,7 @@ namespace QRSpace.Shared.Models
     /// <summary>
     ///
     /// </summary>
-    public class RegisterDto
+    public record RegisterDto
     {
         [Required(ErrorMessageResourceType = typeof(Resources.Models.RegisterDto), ErrorMessageResourceName = "UsernameRequireError")]
         [StringLength(32, MinimumLength = 6, ErrorMessageResourceType = typeof(Resources.Models.RegisterDto), ErrorMessageResourceName = "UsernameLengthError")]

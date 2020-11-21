@@ -99,6 +99,7 @@ namespace QRSpace.Server
 
             services.AddScoped<IShogiRecordRepository, ShogiRecordRepository>();
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+            services.AddScoped<ILowMarryTimeLineService, LowMarryTimeLineService>();
             services.AddSingleton<IUserIdGenerator, UserIdGenerator>();
             services.AddSignalR(opts =>
             {

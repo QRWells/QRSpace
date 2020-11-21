@@ -1,21 +1,21 @@
 ﻿@inherits LayoutComponentBase
-
-<Layout Style="min-height: 100vh;">
-    <SideMenu OnCollapseChanged="OnCollapse" />
-    <Layout Style="@_mainStyle">
-        <Content>@Body</Content>
-        <Footer Style="text-align: center;margin-bottom:0;">TimeSpace ©2020 Created by R4MUN3</Footer>
-    </Layout>
-</Layout>
-
-@code
+    <div class="page">
+        <Layout Style="min-height: 100vh;">
+            <SideMenu OnCollapseChanged="OnCollapse" />
+            <Layout Style="@_mainStyle">
+                <Content>@Body</Content>
+                <Footer Style="text-align: center;margin-bottom:0;">TimeSpace ©2020 Created by R4MUN3</Footer>
+            </Layout>
+        </Layout>
+    </div>
+    @code
 {
-    private const string Transition = "transition: margin-left 0.1s linear;";
+        private const string Transition = "transition: margin-left 0.1s linear;";
 
-    private string _mainStyle = $"margin-left: 200px;{Transition}";
+        private string _mainStyle = $"margin-left: 200px;{Transition}";
 
-    private void OnCollapse(bool value)
-    {
-        _mainStyle = value ? $"{Transition} margin-left: 80px;" : $"{Transition} margin-left: 200px;";
+        private void OnCollapse(bool value)
+        {
+            _mainStyle = value ? $"{Transition} margin-left: 80px;" : $"{Transition} margin-left: 200px;";
+        }
     }
-}

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace QRSpace.Shared.Models.ActionResults
 {
-    public class RegisterResult
+    public record RegisterResult
     {
         public bool Success { get; set; }
         public IEnumerable<string> Errors { get; set; }

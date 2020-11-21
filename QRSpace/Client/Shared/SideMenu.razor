@@ -31,12 +31,12 @@
         </MenuItem>-->
         @{
             RenderFragment gameSubTitle =
-                @<span>
-                    <Icon Type="mobile" Theme="outline" />
-                    <span>@Local["MenuGame"]</span>
-                </span>;
+            @<span>
+                <Icon Type="mobile" Theme="outline" />
+                <span>@Local["MenuGame"]</span>
+            </span>;
         }
-        <SubMenu Title="@gameSubTitle" Key="game">
+        <SubMenu TitleTemplate="@gameSubTitle" Key="game">
             <MenuItem Key="shogi" RouterLink="/game/shogi" RouterMatch="NavLinkMatch.All">
                 <Icon Type="deployment-unit" Theme="outline" />
                 <span>@Local["GameShogi"]</span>

@@ -1,6 +1,6 @@
 ﻿namespace QRSpace.Shared.Models
 {
-    public class UpdateDto
+    public record UpdateDto
     {
         public string Name { get; set; }
 

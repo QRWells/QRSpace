@@ -5,7 +5,7 @@ using System.Text;
 
 namespace QRSpace.Shared.Models
 {
-    public class CreateDto
+    public record CreateDto
     {
         [Required]
         [Display(Name = "UserName")]

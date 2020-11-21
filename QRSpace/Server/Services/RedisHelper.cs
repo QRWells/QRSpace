@@ -26,12 +26,13 @@ namespace QRSpace.Server.Services
         {
             return _connections.GetOrAdd(_instanceName, p => ConnectionMultiplexer.Connect(_connectionString));
         }
-        
-        public IDatabase GetDatabase()
-        {
-            return GetConnect().GetDatabase(_defaultDb);
-        }
-        
+
+        public IDatabase GetDatabase() => GetDatabase(_defaultDb);
+
+        public IDatabase GetUserStateDb() => GetDatabase(2);
+
+        private IDatabase GetDatabase(int db) => GetConnect().GetDatabase(db);
+
         public IServer GetServer(string configName = null, int endPointsIndex = 0)
         {
             var configOption = ConfigurationOptions.Parse(_connectionString);

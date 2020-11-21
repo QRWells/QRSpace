@@ -2,7 +2,7 @@
 
 namespace QRSpace.Shared.Models
 {
-    public class LoginDto
+    public record LoginDto
     {
         [Required]
         public string Username { get; set; }
