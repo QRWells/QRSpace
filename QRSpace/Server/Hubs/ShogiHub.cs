@@ -3,26 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 using QRSpace.Server.Entities;
-using QRSpace.Server.Services;
 
 namespace QRSpace.Server.Hubs
 {
     public class ShogiHub : Hub
     {
-        private static readonly Dictionary<string, string> UserConnectionId = new Dictionary<string, string>();
-        private static readonly Dictionary<string, string> ConnectionIdUser = new Dictionary<string, string>();
+        private static readonly Dictionary<string, string> UserConnectionId = new();
+        private static readonly Dictionary<string, string> ConnectionIdUser = new();
 
-        private static readonly List<GameSession> GameSessions = new List<GameSession>();
-
-        public ShogiHub()
-        {
-            
-        }
+        private static readonly List<GameSession> GameSessions = new();
 
         public async Task Invite(string userName)
         {
@@ -34,7 +25,7 @@ namespace QRSpace.Server.Hubs
         
         public async Task GetConfirmation(string inviterUserName)
         {
-            var name = Context.User.FindFirst(ClaimTypes.Name).Value;
+            var name = Context.User?.FindFirst(ClaimTypes.Name)?.Value;
             var session = new GameSession(inviterUserName, name);
             GameSessions.Add(session);
             var isControl = DateTime.Now.Ticks % 2 == 0;
@@ -60,7 +51,7 @@ namespace QRSpace.Server.Hubs
 
         public override async Task OnConnectedAsync()
         {
-            var userName = Context.User.FindFirst(ClaimTypes.Name)?.Value;
+            var userName = Context.User?.FindFirst(ClaimTypes.Name)?.Value;
             if (!string.IsNullOrEmpty(userName))
             {
                 UserConnectionId.Add(userName, Context.ConnectionId);

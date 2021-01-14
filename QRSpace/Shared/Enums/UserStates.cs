@@ -1,9 +1,14 @@
+using System;
+
 namespace QRSpace.Shared.Enums
 {
-    public static class UserStates
+    [Flags]
+    public enum UserStates : uint
     {
-        public const byte StateUserLoggedIn = 1;
-        public const byte StateUserAway = 2;
-        public const byte StateUserWaitingForShogi = 3;
+        Online = 0x1,
+
+        Away = 0x1 << 1,
+
+        WaitingForShogi = 0x1 << 2,
     }
 }

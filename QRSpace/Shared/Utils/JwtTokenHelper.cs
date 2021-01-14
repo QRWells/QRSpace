@@ -25,7 +25,7 @@ namespace QRSpace.Shared.Utils
             };
             if (roles.Count == 1)
             {
-                claims.Add(new Claim(ClaimTypes.Role, roles.FirstOrDefault()));
+                claims.Add(new Claim(ClaimTypes.Role, roles.FirstOrDefault() ?? string.Empty));
             }
             else
             {

@@ -30,9 +30,9 @@ namespace QRSpace.Client.Models.Shogi
         {
             Cells = new Cell[9, 9];
             Captured = new List<BasePiece>();
-            for (int i = 0; i < 9; i++)
+            for (var i = 0; i < 9; i++)
             {
-                for (int j = 0; j < 9; j++)
+                for (var j = 0; j < 9; j++)
                 {
                     Cells[i, j] = new Cell(this, (i, j));
                 }
@@ -88,7 +88,8 @@ namespace QRSpace.Client.Models.Shogi
         /// <param name="piece"></param>
         public void Drop((int x, int y) pos, BasePiece piece)
         {
-            Cells[pos.x, pos.y].Piece = piece;
+            var (x, y) = pos;
+            Cells[x, y].Piece = piece;
             if (Captured.Contains(piece))
             {
                 Captured.Remove(piece);
@@ -124,8 +125,10 @@ namespace QRSpace.Client.Models.Shogi
             {
                 Capture(to);
             }
-            Cells[to.x, to.y].Piece = Cells[from.x, from.y].Piece;
-            Cells[from.x, from.y].Piece = null;
+
+            var (x, y) = from;
+            Cells[to.x, to.y].Piece = Cells[x, y].Piece;
+            Cells[x, y].Piece = null;
             Update();
         }
 

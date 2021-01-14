@@ -227,12 +227,10 @@ namespace QRSpace.Client.Models.Shogi
                         {
                             var tempX = Pos.x + x;
                             var tempY = Pos.y + y;
-                            if (tempX < 9 && tempX > -1 && tempY < 9 && tempY > -1)
+                            if (tempX >= 9 || tempX <= -1 || tempY >= 9 || tempY <= -1) continue;
+                            if (Parent.Cells[tempX, tempY].Piece == null || Parent.Cells[tempX, tempY].Piece.Player)
                             {
-                                if (Parent.Cells[tempX, tempY].Piece == null || Parent.Cells[tempX, tempY].Piece.Player)
-                                {
-                                    Piece.LegalMoves.Add((tempX, tempY));
-                                }
+                                Piece.LegalMoves.Add((tempX, tempY));
                             }
                         }
                         break;

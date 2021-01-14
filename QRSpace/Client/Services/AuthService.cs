@@ -61,12 +61,15 @@ namespace QRSpace.Client.Services
             var loginResult = await JsonSerializer.DeserializeAsync<LoginResult>(content,
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
+            if (loginResult is null) return new LoginResult{Success = false};
             await _localStorage.SetItemAsync("authToken", loginResult.Token);
-            ((ApiAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsAuthenticated(loginResult.Token);
+            ((ApiAuthenticationStateProvider) _authenticationStateProvider).MarkUserAsAuthenticated(loginResult
+                .Token);
             _httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("bearer", loginResult.Token);
 
             return loginResult;
+
         }
 
         public async Task LogoutAsync()

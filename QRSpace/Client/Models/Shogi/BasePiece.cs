@@ -25,12 +25,12 @@ namespace QRSpace.Client.Models.Shogi
         /// <summary>
         /// Determine if this piece has promoted.
         /// </summary>
-        public bool IsPromoted { get; set; } = false;
+        public bool IsPromoted { get; set; }
 
         /// <summary>
         /// If captured, the position will be unavailable untill it is dropped.
         /// </summary>
-        public bool IsCaptured { get; set; } = false;
+        public bool IsCaptured { get; set; }
 
         /// <summary>
         /// Legal moves of this piece.
@@ -41,7 +41,7 @@ namespace QRSpace.Client.Models.Shogi
         /// 
         /// </summary>
         protected static List<(int x, int y)> KinshoDirection = 
-            new List<(int x, int y)>() { (1, -1), (0, -1), (-1, -1), (1, 0), (-1, 0), (0, 1) };
+            new() { (1, -1), (0, -1), (-1, -1), (1, 0), (-1, 0), (0, 1) };
 
         /// <summary>
         /// The movable directions

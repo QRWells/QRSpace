@@ -5,9 +5,9 @@ namespace QRSpace.Client.Models
     public class Setting
     {
         private Dictionary<string,string> Settings { get; } = 
-            new Dictionary<string, string>
+            new()
             {
-                {"",""},
+                {"",""}
             };
 
         public bool TryAdd(string key, string value)

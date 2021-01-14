@@ -6,7 +6,7 @@ namespace QRSpace.Server.Entities
 {
     public class GameSession
     {
-        public struct Step
+        public record Step
         {
             // 0x0033 => 0,0->3,3
             public short FromTo { get; set; }

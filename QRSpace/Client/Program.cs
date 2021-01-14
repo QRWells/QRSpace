@@ -41,7 +41,7 @@ namespace QRSpace.Client
         {
             services.AddScoped(sp =>
             {
-                var uri = sp.GetService<IConfiguration>().GetSection("App")["ApiUrl"];
+                var uri = sp.GetService<IConfiguration>()?.GetSection("App")["ApiUrl"];
                 return new HttpClient
                 {
                     BaseAddress = new Uri(uri)

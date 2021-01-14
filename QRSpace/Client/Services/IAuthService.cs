@@ -1,6 +1,5 @@
 ﻿using QRSpace.Shared.Models;
 using QRSpace.Shared.Models.ActionResults;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace QRSpace.Client.Services

@@ -21,18 +21,15 @@ namespace QRSpace.Server.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserIdGenerator _generator;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly RoleManager<ApplicationRole> roleManager;
 
         public AccountsController(
             UserManager<ApplicationUser> userManager,
             IUserIdGenerator generator,
-            SignInManager<ApplicationUser> signInManager,
-            RoleManager<ApplicationRole> roleManager)
+            SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             _generator = generator ?? throw new ArgumentNullException(nameof(generator));
             _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
-            this.roleManager = roleManager ?? throw new ArgumentNullException(nameof(roleManager));
         }
 
         /// <summary>

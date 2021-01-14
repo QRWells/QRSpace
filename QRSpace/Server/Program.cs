@@ -20,7 +20,7 @@ namespace QRSpace.Server
 
         private static void CreateDbIfNotExists(IHost host)
         {
-            using IServiceScope scope = host.Services.CreateScope();
+            using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
             try
             {
